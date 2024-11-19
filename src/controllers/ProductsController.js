@@ -2,6 +2,8 @@ const { Types } = require("mongoose");
 const Product = require("../models/product");
 const AppError = require("../utils/AppError");
 
+const dbProduct = new Product();
+
 class ProductsController {
     async create(request, response) {
         const {
@@ -23,7 +25,7 @@ class ProductsController {
             throw new AppError("Um produto com esse nome já está cadastrado!")
         }
 
-        await Product.save({
+        await dbProduct.save({
             name,
             description,
             price,
@@ -55,7 +57,7 @@ class ProductsController {
         product.price = price ?? product.price
         product.qnt_storage = qnt_storage ?? product.qnt_storage
 
-        await Product.updateOne(
+        await dbProduct.updateOne(
             { _id: Types.ObjectId.createFromHexString(product._id) },
             { $set:  {
                 name: product.name,
@@ -71,7 +73,7 @@ class ProductsController {
     async delete(request, response) {
         const { id } = request.params
 
-        await Product.deleteOne({ _id: Types.ObjectId.createFromHexString(id) })
+        await dbProduct.deleteOne({ _id: Types.ObjectId.createFromHexString(id) })
 
         return response.status(200).json({ message: "Produto deletado com sucesso!" })
     }
