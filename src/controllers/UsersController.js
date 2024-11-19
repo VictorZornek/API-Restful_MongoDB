@@ -1,12 +1,33 @@
 const { Types } = require("mongoose");
 const User = require("../models/user");
 const AppError = require("../utils/AppError");
+const { hash, compare } = require("bcryptjs");
 
-const dbProduct = new User();
+const dbUser = new User();
 
 class UsersController {
     async create(request, response) {
-        
+        const { name, email, password } = request.body
+
+        if (!name || !email || !password) {
+            throw new AppError("Todos os campos são obrigatórios!")
+        }
+
+        const checkEmailExists = await User.findOne({ email: email })
+
+        if (checkEmailExists) {
+            throw new AppError("Este e-mail já está cadastrado!")
+        }
+
+        const hashedPassword = await hash(password, 8)
+
+        await dbUser.save({ 
+            name, 
+            email, 
+            password: hashedPassword 
+        })
+
+        return response.status(201).json({ message: "Uusário criado com sucesso!" })
     }
 }
 
