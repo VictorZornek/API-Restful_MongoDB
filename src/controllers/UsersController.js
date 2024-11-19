@@ -31,6 +31,18 @@ class UsersController {
 
         return response.status(201).json({ message: "Usuário criado com sucesso!" })
     }
+
+    async show(request, response) {
+        const { id } = request.params
+
+        const user = await User.find({ _id: Types.ObjectId.createFromHexString(id) })
+    
+        if (!user) {
+            throw new AppError("O usuário não foi encontrado!")
+        }
+
+        return response.status(200).json({ user })
+    }
 }
 
 module.exports = UsersController;
