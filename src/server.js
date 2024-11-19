@@ -1,20 +1,20 @@
-const AppError = require("./utils/AppError")
-const bodyParser = require('body-parser');
-const dotenv = require('dotenv');
+require("express-async-errors");
+
+require('dotenv').config();
+
+const AppError = require("./utils/AppError");
 
 const mongoose = require('mongoose');
 const express = require('express');
 
-const routes = require("./routes")
-
-dotenv.config();
+const routes = require('./routes')
 
 const server = express();
 server.use(express.json());
 
-mongoose.connect(process.env.MONGODB_URI)
+mongoose.connect(process.env.MONGO_CONNECTION)
     .then(() => console.log("Conectado ao MongoDB"))
-    .catch(err => console.error('Erro ao conectar ao MongoDB', err));
+    .catch(error => console.error('Erro ao conectar ao MongoDB', error));
 
 server.use(routes)
 
