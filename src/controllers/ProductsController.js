@@ -49,7 +49,7 @@ class ProductsController {
         const checkNameChange = await Product.findOne({ name: name })
 
         if (checkNameChange && checkNameChange._id.toString() !== product._id.toString()) {
-            throw new AppError("Este nome já está sendo cadastrado por outro produto!")
+            throw new AppError("Este nome já está sendo utilizado por outro produto!")
         }
 
         const updatedProduct = await Product.findByIdAndUpdate(
