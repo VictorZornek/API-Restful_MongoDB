@@ -25,13 +25,15 @@ class ProductsController {
             throw new AppError("Um produto com esse nome já está cadastrado!")
         }
 
-        await dbProduct.save({
+        const newProduct = new Product({
             name,
             description,
             price,
             qnt_storage,
             user
         })
+
+        await newProduct.save()
 
         return response.status(201).json({ message: "Novo produto cadastrado com sucesso!"})
     }

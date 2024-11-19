@@ -21,13 +21,15 @@ class UsersController {
 
         const hashedPassword = await hash(password, 8)
 
-        await dbUser.save({ 
+        const newUser = new User({ 
             name, 
             email, 
             password: hashedPassword 
         })
 
-        return response.status(201).json({ message: "Uusário criado com sucesso!" })
+        await newUser.save()
+
+        return response.status(201).json({ message: "Usuário criado com sucesso!" })
     }
 }
 
