@@ -30,6 +30,18 @@ class UsersController {
         return response.status(201).json({ message: "Usuário criado com sucesso!" })
     }
 
+    async delete(request, response) {
+        const { id } = request.params
+
+        const deletedUser = await User.findByIdAndDelete(id)
+
+        if (!deletedUser) {
+            throw new AppError("Usuário não foi encontrado!")
+        }
+
+        return response.status(200).json({ message: "Usuário deletado com sucesso!", user_deleted: deletedUser})
+    }
+
     async show(request, response) {
         const { id } = request.params
 
