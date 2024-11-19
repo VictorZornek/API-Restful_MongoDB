@@ -33,6 +33,14 @@ class ProductsController {
         return response.status(201).json({ message: "Novo produto cadastrado com sucesso!"})
     }
 
+    async show(request, response) {
+        const { id } = request.params
+        
+        const product = await Product.find({ _id: id })
+
+        return response.status(200).json({ product })
+    }
+
     async index(request, response) {
         const products = await Product.find()
 
