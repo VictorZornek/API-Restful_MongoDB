@@ -41,6 +41,12 @@ class UsersController {
 
         return response.status(200).json({ user })
     }
+
+    async index(request, response) {
+        const users = await User.find()
+
+        return response.status(200).json({ users })
+    }
 }
 
 module.exports = UsersController;
