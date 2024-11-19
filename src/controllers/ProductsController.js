@@ -2,8 +2,6 @@ const { Types } = require("mongoose");
 const Product = require("../models/product");
 const AppError = require("../utils/AppError");
 
-const dbProduct = new Product();
-
 class ProductsController {
     async create(request, response) {
         const {
@@ -54,30 +52,29 @@ class ProductsController {
             throw new AppError("Este nome já está sendo cadastrado por outro produto!")
         }
 
-        product.name = name ?? product.name
-        product.description = description ?? product.description
-        product.price = price ?? product.price
-        product.qnt_storage = qnt_storage ?? product.qnt_storage
-
-        await dbProduct.updateOne(
-            { _id: Types.ObjectId.createFromHexString(product._id) },
-            { $set:  {
-                name: product.name,
-                description: product.description,
-                price: product.price,
-                qnt_storage: product.qnt_storage
-            }}
+        const updatedProduct = await Product.findByIdAndUpdate(
+            id,
+            { name, description, price, qnt_storage },
+            { new: true }
         )
 
-        return response.status(200).json({ message: "Produto alterado com sucesso!" })
+        if (!updatedProduct) {
+            throw new AppError("Produto não foi encontrado!")
+        }
+
+        return response.status(200).json({ message: "Produto alterado com sucesso!", product: updatedProduct })
     }
 
     async delete(request, response) {
         const { id } = request.params
 
-        await dbProduct.deleteOne({ _id: Types.ObjectId.createFromHexString(id) })
+        const deletedProduct = await Product.findByIdAndDelete(id)
 
-        return response.status(200).json({ message: "Produto deletado com sucesso!" })
+        if (!deletedProduct) {
+            throw new AppError("Produto não foi encontrado!")
+        }
+
+        return response.status(200).json({ message: "Produto deletado com sucesso!", product_deleted: deletedProduct })
     }
 
     async show(request, response) {

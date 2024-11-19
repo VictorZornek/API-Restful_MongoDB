@@ -3,8 +3,6 @@ const User = require("../models/user");
 const AppError = require("../utils/AppError");
 const { hash, compare } = require("bcryptjs");
 
-const dbUser = new User();
-
 class UsersController {
     async create(request, response) {
         const { name, email, password } = request.body
