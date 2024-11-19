@@ -1,3 +1,4 @@
+const { Types } = require("mongoose");
 const Product = require("../models/product");
 const AppError = require("../utils/AppError");
 
@@ -33,10 +34,18 @@ class ProductsController {
         return response.status(201).json({ message: "Novo produto cadastrado com sucesso!"})
     }
 
+    async delete(request, response) {
+        const { id } = request.params
+
+        await Product.deleteOne({ _id: Types.ObjectId.createFromHexString(id) })
+
+        return response.status(200).json({ message: "Produto deletado com sucesso!" })
+    }
+
     async show(request, response) {
         const { id } = request.params
         
-        const product = await Product.find({ _id: id })
+        const product = await Product.find({ _id: Types.ObjectId.createFromHexString(id) })
 
         return response.status(200).json({ product })
     }
