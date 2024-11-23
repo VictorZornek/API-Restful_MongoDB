@@ -34,8 +34,8 @@ Antes de começar, você precisará ter instalado:
 
 1. **Clone o repositório**:
    ```bash
-   git clone https://github.com/seu-usuario/seu-repositorio.git
-   cd seu-repositorio
+   git clone https://github.com/VictorZornek/API-Restful_MongoDB.git
+   cd API-Restful_MongoDB
    ```
 
 2. **Instale as dependências**:
@@ -47,7 +47,7 @@ Antes de começar, você precisará ter instalado:
    Crie um arquivo `.env` na raiz do projeto e defina as seguintes variáveis:
    ```
    PORT=3000
-   MONGO_CONNECTION=sua-string-de-conexao-mongodb
+   MONGO_CONNECTION=mongodb://localhost:27017
    ```
 
 4. **Inicie a aplicação**:
@@ -65,7 +65,7 @@ Antes de começar, você precisará ter instalado:
 ## 🔗 Endpoints da API
 
 ### Usuários
-Base URL: `http://localhost:<PORT>/Users`  
+Base URL: `http://localhost:3000/Users`  
 Operações disponíveis:
 - **Criar usuário** (POST)
 - **Listar usuários** (GET)
@@ -73,7 +73,7 @@ Operações disponíveis:
 - **Deletar usuário** (DELETE)
 
 ### Produtos
-Base URL: `http://localhost:<PORT>/Products`  
+Base URL: `http://localhost:3000/Products`  
 Operações disponíveis:
 - **Criar produto** (POST)
 - **Listar produtos** (GET)
@@ -86,28 +86,26 @@ Operações disponíveis:
 
 Utilizamos o **Postman** para realizar os testes das rotas da API.
 
-1. **Configuração do Postman**:
-   - Defina as URLs mencionadas acima como base.
-   - Utilize os métodos HTTP apropriados para cada operação (GET, POST, PUT, DELETE).
+ **Configuração do Postman**:
+  - Defina as URLs mencionadas acima como base.
+  - Utilize os métodos HTTP apropriados para cada operação (GET, POST, PUT, DELETE).
 
-2. **Exemplo de Teste**:
-   - **Criar usuário**:  
-     Enviar uma requisição `POST` para `http://localhost:<PORT>/Users` com um corpo JSON como:
-     ```json
-     {
-       "nome": "John Doe",
-       "email": "johndoe@email.com"
-     }
-     ```
+`
 
-   - **Criar produto**:  
-     Enviar uma requisição `POST` para `http://localhost:<PORT>/Products` com um corpo JSON como:
-     ```json
-     {
-       "nome": "Produto A",
-       "preco": 99.99
-     }
-     ```
+---
+
+## 📂 Arquivos para Teste no Postman
+
+Utilize as coleções do Postman abaixo para realizar testes facilmente na API:
+
+- [Coleção de Usuários (Users)](./Users.postman_collection.json)
+- [Coleção de Produtos (Products)](./Products.postman_collection.json)
+
+Para importar as coleções no Postman:
+
+1. Abra o Postman.
+2. Clique em **Import**.
+3. Selecione o arquivo desejado e importe-o.
 
 ---
 
