@@ -107,6 +107,8 @@ Para importar as coleções no Postman:
 2. Clique em **Import**.
 3. Selecione o arquivo desejado e importe-o.
 
+**LEMBRETE:** É necessário que tenha pelo menos um usuário cadastrado antes de ser cadastrado um produto
+
 ---
 
 ## 🛡️ Tecnologias Utilizadas
